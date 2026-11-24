@@ -6,15 +6,14 @@ import eu.kanade.tachiyomi.source.model.Page
 import eu.kanade.tachiyomi.source.model.SChapter
 import eu.kanade.tachiyomi.source.model.SManga
 import eu.kanade.tachiyomi.source.online.ParsedHttpSource
+import io.github.keiyoushi.annotations.Source
 import okhttp3.Request
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 
+@Source
 class AquaMangaIo : ParsedHttpSource() {
 
-    override val name = "Aqua Manga (IO)"
-    override val baseUrl = "https://aquamanga.io"
-    override val lang = "en"
     override val supportsLatest = true
 
     // 1. Popular & Latest Listings
