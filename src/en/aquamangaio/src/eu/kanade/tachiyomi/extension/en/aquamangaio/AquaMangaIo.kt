@@ -16,7 +16,6 @@ class AquaMangaIo : ParsedHttpSource() {
 
     override val supportsLatest = true
 
-    // 1. Popular & Latest Listings
     override fun popularMangaRequest(page: Int): Request = GET("$baseUrl/popular?page=$page", headers)
     override fun latestUpdatesRequest(page: Int): Request = GET("$baseUrl/latest?page=$page", headers)
 
@@ -34,7 +33,6 @@ class AquaMangaIo : ParsedHttpSource() {
     override fun popularMangaNextPageSelector(): String? = "a.next, a[rel=next]"
     override fun latestUpdatesNextPageSelector(): String? = popularMangaNextPageSelector()
 
-    // 2. Search
     override fun searchMangaRequest(page: Int, query: String, filters: FilterList): Request =
         GET("$baseUrl/search?q=$query&page=$page", headers)
 
@@ -42,7 +40,6 @@ class AquaMangaIo : ParsedHttpSource() {
     override fun searchMangaFromElement(element: Element): SManga = popularMangaFromElement(element)
     override fun searchMangaNextPageSelector(): String? = popularMangaNextPageSelector()
 
-    // 3. Manga Details
     override fun mangaDetailsParse(document: Document): SManga = SManga.create().apply {
         title = document.selectFirst("h1")!!.text()
         description = document.selectFirst("div.description, p.summary")?.text()
@@ -50,7 +47,6 @@ class AquaMangaIo : ParsedHttpSource() {
         thumbnail_url = document.selectFirst("div.cover img")?.absUrl("src")
     }
 
-    // 4. Chapter List
     override fun chapterListSelector(): String = "ul.chapter-list li a, div.chapters a"
 
     override fun chapterFromElement(element: Element): SChapter = SChapter.create().apply {
@@ -58,7 +54,6 @@ class AquaMangaIo : ParsedHttpSource() {
         setUrlWithoutDomain(element.attr("href"))
     }
 
-    // 5. Chapter Pages
     override fun pageListParse(document: Document): List<Page> {
         return document.select("div.reader-area img, div.chapter-images img").mapIndexed { index, img ->
             Page(index, "", img.absUrl("src"))
