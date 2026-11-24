@@ -1,12 +1,8 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-
 ext {
     extName = 'Aqua Manga (IO)'
-    pkgNameSuffix = 'en.aquamangaio'
     extClass = '.AquaMangaIo'
     extVersionCode = 1
-    isNsfw = false
+    libVersion = '1.5'
 }
 
 apply from: "$rootDir/common.gradle"
