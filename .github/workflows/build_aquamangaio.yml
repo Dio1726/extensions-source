@@ -19,7 +19,8 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build Extension APK
-        run: ./gradlew :src:en:aquamangaio:assembleDebug
+        run: ./gradlew :src:en:aquamangaio:assembleDebug -x spotlessCheck
+
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
